@@ -1,1 +1,1 @@
-console.log("hello");
+var server = require('./server');
