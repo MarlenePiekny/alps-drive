@@ -13,7 +13,14 @@ app.listen(port, () => { });
 
 //Retourne une liste contenant les dossiers et fichiers à la racine du “drive”
 app.get('/api/drive', (req, res) => {
-    drive.listFolder().then( (resulat) => {
-        res.send(resulat);
-    });
+    drive.listRootFolder().then( (listFolder) => {
+       res.json(listFolder);
+    })
 });
+
+/* //Retourne le contenu de {name}
+app.get('/api/drive/{}',(req, res) => {
+    drive.listSpecificFolder().then( (folderList) => {
+        res.send(folderList);
+    });
+}) */
