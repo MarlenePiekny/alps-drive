@@ -9,7 +9,9 @@ const port = 3000;
 app.use(express.static('frontend'));
 
 //Le projet s'ecoute sur le port 3000 du localhost
-app.listen(port, () => { });
+app.listen(port, () => {
+    console.log(`Alps Drive listening at http://localhost:${port}`);
+});
 
 //Retourne une liste contenant les dossiers et fichiers à la racine du “drive”
 app.get('/api/drive', (req, res) => {
@@ -18,9 +20,9 @@ app.get('/api/drive', (req, res) => {
     })
 });
 
-/* //Retourne le contenu de {name}
-app.get('/api/drive/{}',(req, res) => {
-    drive.listSpecificFolder().then( (folderList) => {
-        res.send(folderList);
+//Retourne le contenu de {name} adapté en fonction de sa catégorie un dossier ou un fichier
+app.get('/api/drive/:name',(req, res) => {
+    drive.displayContent(req.params.name).then( (content) => {
+        res.send(content);
     });
-}) */
+});
