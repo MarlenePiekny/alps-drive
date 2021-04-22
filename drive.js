@@ -103,8 +103,8 @@ const checkName = (name) => {
 }
 
 //Supprime un dossier ou un fichier avec le nom {name}
-const deleteContent = (name) => {
-    const promiseDeleteContent = fs.rm(path.join(alpsDriveRoot, name), {force:true, recursive:true})
+const deleteContent = (name, folder="") => {
+    const promiseDeleteContent = fs.rm(path.join(alpsDriveRoot, folder, name), {force:true, recursive:true})
     .then( (result) => {
         console.log(`Le dossier ou fichier ${name} a été supprimé`);
         return result; 
