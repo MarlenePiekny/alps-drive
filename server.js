@@ -22,7 +22,21 @@ app.get('/api/drive', (req, res) => {
 
 //Retourne le contenu de {name} adapté en fonction de sa catégorie un dossier ou un fichier
 app.get('/api/drive/:name',(req, res) => {
-    drive.displayContent(req.params.name).then( (content) => {
-        res.send(content);
-    });
+    drive.displayContent(req.params.name)
+    .then( (content) => {res.send(content)})
+    .catch( () => {res.status(404).send("Ce nom de dossier n'existe pas")})
 });
+
+//Crée un dossier avec le nom {name}
+app.post('/api/drive', (req, res) => {
+    drive.createFolder(req.query.name)
+    .then( (createdFolder) => {res.send(createdFolder)})
+    .catch( () => { res.status(400).send("Le nom doit être de type alphanumérique")})
+});
+
+//Créer un dossier avec le nom {name} dans {folder}
+app.post('/api/drive/:folder', (req, res) => {
+    drive.createFolder(req.query.name, req.params.folder)
+    .then( (createdFolder ) => {res.send(createdFolder)})
+});
+
