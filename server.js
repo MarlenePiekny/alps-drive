@@ -34,7 +34,7 @@ app.post('/api/drive', (req, res) => {
     .catch( () => { res.status(400).send("Le nom doit être de type alphanumérique")})
 });
 
-//Créer un dossier avec le nom {name} dans {folder}
+//Crée un dossier avec le nom {name} dans {folder}
 app.post('/api/drive/:folder', (req, res) => {
     drive.createFolder(req.query.name, req.params.folder)
     .then( (createdFolder ) => {res.send(createdFolder)})
