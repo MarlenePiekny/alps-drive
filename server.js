@@ -40,3 +40,8 @@ app.post('/api/drive/:folder', (req, res) => {
     .then( (createdFolder ) => {res.send(createdFolder)})
 });
 
+//Supprime un dossier ou un fichier avec le nom {name}
+app.delete('/api/drive/:name', (req, res) => {
+    drive.deleteContent(req.params.name)
+    .then( (deletedContent) => {res.send(deletedContent)})
+});

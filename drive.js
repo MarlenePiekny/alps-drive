@@ -2,7 +2,6 @@ const fs = require('fs/promises');
 const path = require('path');
 
 const alpsDriveRoot = path.join('/tmp', 'base');
-console.log(alpsDriveRoot);
 
 //Créer un dossier de base
 const createBaseFolder = () => {
@@ -70,7 +69,6 @@ const readFile = (file) => {
 
 //Retourne le contenu de "name"
 const displayContent = (name) => {
-    console.log(path.join(alpsDriveRoot, name));
     const promiseDisplay = fs.stat(path.join(alpsDriveRoot, name))
         .then((result) => {
             if (result.isDirectory()) {
@@ -85,8 +83,6 @@ const displayContent = (name) => {
         });
     return promiseDisplay;
 };
-
-displayContent("bonjour");
 
 //Crée un dossier avec le nom {name}
 const createFolder = (name, folder="") => {
@@ -106,10 +102,24 @@ const checkName = (name) => {
     return /^[a-zA-Z1-9 ]*$/.test(name);
 }
 
+//Supprime un dossier ou un fichier avec le nom {name}
+const deleteContent = (name) => {
+    const promiseDeleteContent = fs.rm(path.join(alpsDriveRoot, name), {force:true, recursive:true})
+    .then( (result) => {
+        console.log(`Le dossier ou fichier ${name} a été supprimé`);
+        return result; 
+    })
+    .catch( (error) => {
+        console.log("Erreur sur le fonction deleteContent : " + error);
+    })
+    return promiseDeleteContent;
+};
+
 //Exporter chaque fonction
 module.exports = {
     createFolder: createBaseFolder,
     listRootFolder: listRootFolder,
     displayContent: displayContent,
-    createFolder: createFolder
+    createFolder: createFolder,
+    deleteContent: deleteContent
 };
